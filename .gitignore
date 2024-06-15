@@ -2,6 +2,8 @@
 /node_modules
 
 # dotenv environment fdsaf variables
+#hello
+
 .env
 
 # Logs
