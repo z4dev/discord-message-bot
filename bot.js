@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-const token = process.env.DISCORD_TOKEN; // replace it with your bot token 
+const token = process.env.DISCORD_TOKEN; // replace it with your bot token , you  can get  it from the discord developer portal
 
 const client = new Client({
     intents: [
