@@ -1,7 +1,7 @@
 # Node.js dependencies
 /node_modules
 
-# dotenv environment variables
+# dotenv environment fdsaf variables
 .env
 
 # Logs
