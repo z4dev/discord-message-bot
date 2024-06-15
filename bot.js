@@ -6,6 +6,11 @@ const port = 3000;
 
 const token = process.env.DISCORD_TOKEN;
 
+if (!token) {
+    console.error('DISCORD_TOKEN is not defined in environment variables.');
+    process.exit(1); // Exit the process with an error code
+}
+
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -53,7 +58,10 @@ app.post('/send-message', express.json(), (req, res) => {
     }
 });
 
-client.login(token);
+client.login(token).catch(err => {
+    console.error('Error logging in:', err);
+    process.exit(1); // Exit the process with an error code
+});
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
