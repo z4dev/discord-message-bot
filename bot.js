@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-const token = process.env.DISCORD_TOKEN; // replace it with your bot token , you  can get  it from the discord developer portal
+const token = process.env.DISCORD_TOKEN;
 
 const client = new Client({
     intents: [
@@ -16,11 +16,16 @@ const client = new Client({
     partials: [Partials.Message, Partials.Channel, Partials.Reaction]
 });
 
-client.once('ready', () => {
+client.once('ready', async () => {
     console.log('Bot is online!');
+
+    // Ensure the bot has access to all members
+    for (const guild of client.guilds.cache.values()) {
+        await guild.members.fetch();
+        console.log(`Fetched members for guild: ${guild.name}`);
+    }
 });
 
-// Function to send a message to all users
 async function sendMessageToAllUsers(messageContent) {
     for (const guild of client.guilds.cache.values()) {
         console.log(`Checking guild: ${guild.name}`);
@@ -38,7 +43,6 @@ async function sendMessageToAllUsers(messageContent) {
     }
 }
 
-// Express route to trigger message sending
 app.post('/send-message', express.json(), (req, res) => {
     const messageContent = req.body.message;
     if (messageContent) {
